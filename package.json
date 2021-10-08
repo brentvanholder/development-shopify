@@ -15,10 +15,5 @@
   "bugs": {
     "url": "https://github.com/brentvanholder/development-shopify/issues"
   },
-  "homepage": "https://github.com/brentvanholder/development-shopify#readme",
-  "devDependencies": {
-    "autoprefixer": "^10.3.7",
-    "postcss": "^8.3.9",
-    "tailwindcss": "^2.2.16"
-  }
+  "homepage": "https://github.com/brentvanholder/development-shopify#readme"
 }
