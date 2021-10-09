@@ -1,0 +1,42 @@
+{%- liquid
+  assign max_width = max_width | default: 1920
+  assign desktop_img = desktop_img | default: img
+
+  assign img_ratio = 1.00 | divided_by: img.aspect_ratio | times: 100
+  assign desktop_ratio = 1.00 | divided_by: desktop_img.aspect_ratio | times: 100
+
+  assign lazy = lazy | default: true, allow_false: true
+
+  assign placeholder = placeholder | default: true, allow_false: true
+
+  if eager 
+    assign lazy = false
+  endif
+-%}
+{% comment %} theme-check-disable ImgLazyLoading,RemoteAsset {% endcomment %}
+
+<picture style="--mobile-ratio: {{ aspect_ratio | default: img_ratio }}%; --desktop-ratio: {{ desktop_ratio | default: aspect_ratio }}%;" class="{{- class }} relative w-full overflow-hidden block pt-[var(--mobile-ratio)] md:pt-[var(--desktop-ratio)]">
+  <source media="(max-width: 767px)" 
+    sizes="(-webkit-min-device-pixel-ratio: 1),(max-resolution: 191dpi) 50vw, (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) 50vw"
+    srcset="{{ img | img_url: '165x' }} 165w,
+    {%- if max_width >= 360 -%}{{ img | img_url: '360x' }} 360w,{%- endif -%}
+    {%- if max_width >= 535 -%}{{ img | img_url: '535x' }} 535w,{%- endif -%}
+    {%- if max_width >= 767 -%}{{ img | img_url: '767x' }} 767w,{%- endif -%}">
+  <source media="(min-width: 768px)" 
+    sizes="(-webkit-min-device-pixel-ratio: 1),(max-resolution: 191dpi) 50vw, (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) 100vw"
+    srcset="{{ desktop_img | img_url: '768x' }} 768w,
+    {%- if max_width >= 1070 -%}{{ desktop_img | img_url: '1070x' }} 1070w,{%- endif -%}
+    {%- if max_width >= 1500 -%}{{ desktop_img | img_url: '1500x' }} 1500w,{%- endif -%}
+    {%- if max_width >= 2560 -%}{{ desktop_img | img_url: '2560x' }} 2560vw,{%- endif -%}">
+  <img
+    src="{{ img | img_url: '1500x' }}"
+    class="{{- img_class }} peer absolute inset-0 w-full h-full"
+    alt="{{- alt | default: img.alt | default: shop.name -}}"
+    loading="{% if lazy %}lazy{% else %}eager{% endif %}"
+    width="{{- img.width -}}"
+    height="{{- img.height -}}" 
+  >
+  {%- if placeholder -%}
+    <div class="absolute inset-0 z-[-1] w-full h-full bg-primary"></div>
+  {%- endif -%}
+</picture>   

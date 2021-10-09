@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "shopify theme serve && npx tailwindcss -o tailwind.css",
     "kill-port": "kill -9 $(lsof -ti:9292)"
   },
   "repository": {

@@ -1,0 +1,59 @@
+{% liquid
+  assign s = section.settings 
+  assign image = s.image
+  assign imageDesktop = s.image_desktop
+  assign buttonText = s.button_text
+  assign buttonUrl = s.button_url
+-%}
+
+<section class="relative">
+  <div class="absolute inset-0 w-full h-full">
+    {%- 
+      render 'component-image',
+      img: image,
+      desktop_img: imageDesktop
+    -%}
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Hero banner",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Images"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image Mobile"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_desktop",
+        "label": "Image Desktop"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button Url"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero banner"
+      }
+    ]
+  }
+{% endschema %}
