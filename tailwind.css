@@ -703,6 +703,11 @@ video {
   white-space: nowrap;
 }
 
+.bg-red-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(185, 28, 28, var(--tw-bg-opacity));
+}
+
 .pt-\[var\(--mobile-ratio\)\] {
   padding-top: var(--mobile-ratio);
 }
